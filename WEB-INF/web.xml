@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<web-app>
+	<display-name>ClothingStore</display-name>
+	<description>ClothingStore</description>
+	<servlet>
+		<servlet-name>All Shirts</servlet-name>
+		<servlet-class>AllClothesServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>All Shirts</servlet-name>
+		<url-pattern>/shirts</url-pattern>
+	</servlet-mapping>
+</web-app>
