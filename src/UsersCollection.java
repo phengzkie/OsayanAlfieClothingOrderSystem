@@ -8,7 +8,7 @@ public class UsersCollection
 		users = new ArrayList<Users>();
 	}
 
-	public void addUsers(Users user) {
+	public void addUser(Users user) {
 		users.add(user);
 	}
 

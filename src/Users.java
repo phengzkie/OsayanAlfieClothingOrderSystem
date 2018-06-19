@@ -19,6 +19,11 @@ public class Users
 		number = n;
 		address = add;
 	}
+
+	public int getId() {
+		return(ID);
+	}
+	
 	public String getUsername() {
 		return(username);
 	}

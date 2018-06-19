@@ -47,9 +47,9 @@ public class StoreDatabase
 		return(staffs);
 	}
 
-	public void addUsers(Users user) {
+	public void addUser(Users user) {
 		if(insertUsersToDB(user)) {
-			users.addUsers(user);
+			users.addUser(user);
 		}
 	}
 
@@ -165,7 +165,7 @@ public class StoreDatabase
 					rs.getString("address"),
 				};
 				Users u = new Users(rs.getInt("userid"), str[0], str[1], str[2], str[3], str[4], str[5], str[6]);
-				users.addUsers(u);
+				users.addUser(u);
 			}
 			rs = stmt.executeQuery("SELECT * FROM staff;");
 			while(rs.next()) {
@@ -189,10 +189,14 @@ public class StoreDatabase
 					rs.getString("size"),
 					rs.getString("gender")
 				};
-				Shirt s = new Shirt(rs.getInt("clothesid"), str[0], str[1], str[2], rs.getBigDecimal("price"), rs.getInt("quantity"), str[3], str[4], str[5]);
-				clothes.addClothes(s);
-				Other o = new Other(rs.getInt("clothesid"), str[0], str[1], str[2], rs.getBigDecimal("price"), rs.getInt("quantity"), str[4], str[5]);
-				clothes.addClothes(o);
+				if("Shirt".equals(str[1])) {
+					Shirt s = new Shirt(rs.getInt("clothesid"), str[0], str[1], str[2], rs.getBigDecimal("price"), rs.getInt("quantity"), str[3], str[4], str[5]);
+					clothes.addClothes(s);
+				}
+				else if("Others".equals(str[1])) {
+					Other o = new Other(rs.getInt("clothesid"), str[0], str[1], str[2], rs.getBigDecimal("price"), rs.getInt("quantity"), str[4], str[5]);
+					clothes.addClothes(o);
+				}
 			}
 			v = true;
 		}
@@ -204,5 +208,26 @@ public class StoreDatabase
 			try { if (stmt != null) stmt.close(); } catch (Exception e) {};
 		}
 		return(v);
+	}
+
+	public boolean checkUser(String un, String pw) {
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		boolean st = false;
+		try{
+			stmt = conn.prepareStatement("SELECT * FROM users where username = ? AND password = ?;");
+			stmt.setString(1, un);
+			stmt.setString(2, pw);
+			rs = stmt.executeQuery();
+			st = rs.next();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			try { if (rs != null) rs.close(); } catch (Exception e) {};
+			try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+		}
+		return(st);
 	}
 }

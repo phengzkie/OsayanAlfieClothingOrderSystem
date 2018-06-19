@@ -19,6 +19,10 @@ public class Shirt extends Clothes
 		gender = g;
 	}
 
+	public int getId() {
+		return(ID);
+	}
+
 	public String getDesign() {
 		return(design);
 	}

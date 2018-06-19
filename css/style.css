@@ -1,0 +1,149 @@
+body {
+	padding: 0;
+	margin: 0;
+	font-family: 'Roboto', sans-serif;
+	position: relative;
+}
+
+body a {
+	transition: 0.5s all;
+	-webkit-transition: 0.5s all;
+	-moz-transition: 0.5s all;
+	-o-transition: 0.5s all;
+	-ms-transition: 0.5s all;
+	text-decoration: none;
+}
+
+body a:hover {
+	transition: 0.5s all;
+	-webkit-transition: 0.5s all;
+	-moz-transition: 0.5s all;
+	-o-transition: 0.5s all;
+	-ms-transition: 0.5s all;
+	text-decoration: none;
+}
+
+body a:focus, a:hover {
+	text-decoration: none;
+}
+
+input[type="button"], input[type="submit"], button.btn, button.btn:hover {
+	transition: 0.5s all;
+	-webkit-transition: 0.5s all;
+	-moz-transition: 0.5s all;
+	-o-transition: 0.5s all;
+	-ms-transition: 0.5s all;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	font-family: 'Montserrat', sans-serif;
+}
+
+p {
+	margin: 0;
+}
+
+ul {
+	margin: 0;
+	padding: 0;
+}
+
+label {
+	margin: 0;
+}
+
+img {
+	width: 100%;
+}
+
+a:focus, a:hover {
+	text-decoration: none;
+	outline: none;
+}
+
+.btn:focus, .btn:active:focus, .btn.active:focus {
+	outline: none;
+	box-shadow: none;
+}
+
+.header-topbar {
+	margin-top: 50px;
+	padding: 20px 0;
+}
+
+nav.navbar {
+	margin-bottom: 0;
+	background-color: #FFF;
+	border: none;
+	height: 55px;
+	padding-top: 5px;
+}
+
+a.navbar-brand {
+	font-family: 'Noto Serif', serif;
+	font-size: 20px;
+	font-weight: bold;
+	line-height: 16px;
+}
+
+.navbar-default .navbar-brand {
+	color: #001c44;
+}
+
+.navbar-default .navbar-brand span {
+	color: #c41228;
+}
+
+.row {
+	margin: 0;
+}
+
+
+.top-bar {
+	padding: 0;
+	text-align: right;
+}
+
+.top-bar ul li {
+	display: inline-block;
+	margin: 0 5px;
+}
+
+.top-bar ul li a {
+	color: #000;
+}
+
+.top-bar ul li a:hover {
+	color: #c41228;
+}
+
+.top-bar ul li:nth-child(6) {
+	margin-right: 0;
+}
+
+@media screen and (max-width: 1080px) {
+	a.navbar-brand {
+		font-size: 18px;
+	}
+}
+
+@media (max-device-width: 480px) and (orientation: landscape) {
+	.navbar-fixed-top {
+	max-height: 200px;
+	}
+}
+
+.hide {
+	display: none;
+}
+
+#login-form {
+	text-align: center;
+}
+
+#signup-form {
+	text-align: center;
+}

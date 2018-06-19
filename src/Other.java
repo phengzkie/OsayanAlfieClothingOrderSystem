@@ -5,7 +5,6 @@ public class Other extends Clothes
 	final int ID;
 	private String size;
 	private String gender;
-	private String productname;
 
 	public Other(int id, String pn, String t, String c, BigDecimal p, int q, String s, String g) {
 		ID = id;
@@ -18,15 +17,15 @@ public class Other extends Clothes
 		gender = g;
 	}
 
+	public int getId() {
+		return(ID);
+	}
+
 	public String getSize() {
 		return(size);
 	}
 
 	public String getGender() {
 		return(gender);
-	}
-
-	public String getProductName() {
-		return(productname);
 	}
 }

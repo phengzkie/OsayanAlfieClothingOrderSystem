@@ -2,29 +2,29 @@ import java.util.ArrayList;
 
 public class StaffCollection
 {
-	ArrayList<Staff> staffs;
+	ArrayList<Staff> staff;
 
 	public StaffCollection() {
-		staffs = new ArrayList<Staff>();
+		staff = new ArrayList<Staff>();
 	}
 
-	public void addStaff(Staff staff) {
-		staffs.add(staff);
+	public void addStaff(Staff s) {
+		staff.add(s);
 	}
 
-	public void removeStaff(Staff staff) {
-		staffs.remove(staff);
+	public void removeStaff(Staff s) {
+		staff.remove(s);
 	}
 
 	public ArrayList<Staff> getAllStaff() {
-		return(staffs);
+		return(staff);
 	}
 
 	public Staff getStaffByIndex(int n) {
-		return(staffs.get(n));
+		return(staff.get(n));
 	}
 
 	public int getStaffCount() {
-		return(staffs.size());
+		return(staff.size());
 	}
 }
