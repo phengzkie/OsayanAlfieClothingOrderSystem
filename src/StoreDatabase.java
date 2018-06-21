@@ -1,16 +1,20 @@
 import java.util.ArrayList;
+import java.util.Date;
 import java.lang.StringBuffer;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.sql.*;
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 
 public class StoreDatabase
 {
 	private ClothesCollection clothes;
 	private UsersCollection users;
-	private StaffCollection staffs;
+	private StaffCollection staff;
+	private OrderCollection orders;
 	Connection conn;
 	static StoreDatabase _instance = null;
 
@@ -24,7 +28,8 @@ public class StoreDatabase
 	public StoreDatabase() {
 		clothes = new ClothesCollection();
 		users = new UsersCollection();
-		staffs = new StaffCollection();
+		staff = new StaffCollection();
+		orders = new OrderCollection();
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			conn = DriverManager.getConnection("jdbc:mysql://localhost/clothingstoredb?user=alfie&password=alfie123&serverTimezone=UTC&useSSL=false");
@@ -44,26 +49,24 @@ public class StoreDatabase
 	}
 
 	public StaffCollection getStaffCollection() {
-		return(staffs);
+		return(staff);
 	}
 
-	public void addUser(Users user) {
-		if(insertUsersToDB(user)) {
-			users.addUser(user);
-		}
+	public OrderCollection getOrderCollection() {
+		return(orders);
 	}
 
-	boolean insertUsersToDB(Users user) {
+	public boolean insertUserToDB(String... str) {
 		PreparedStatement stmt = null;
 		try {
 			stmt = conn.prepareStatement("INSERT INTO users ( username, password, firstname, lastname, email, number, address ) VALUES ( ?, ?, ?, ?, ?, ?, ? );");
-			stmt.setString(1, user.getUsername());
-			stmt.setString(2, user.getPassword());
-			stmt.setString(3, user.getFirstName());
-			stmt.setString(4, user.getLastName());
-			stmt.setString(5, user.getEmail());
-			stmt.setString(6, user.getNumber());
-			stmt.setString(7, user.getAddress());
+			stmt.setString(1, str[0]);
+			stmt.setString(2, str[1]);
+			stmt.setString(3, str[2]);
+			stmt.setString(4, str[3]);
+			stmt.setString(5, str[4]);
+			stmt.setString(6, str[5]);
+			stmt.setString(7, str[6]);
 			stmt.executeUpdate();
 		}
 		catch(Exception e) {
@@ -76,21 +79,15 @@ public class StoreDatabase
 		return(true);
 	}
 
-	public void addStaff(Staff staff) {
-		if(insertStaffToDB(staff)) {
-			staffs.addStaff(staff);
-		}
-	}
-
-	boolean insertStaffToDB(Staff staff) {
+	public boolean insertStaffToDB(String... str) {
 		PreparedStatement stmt = null;
 		try {
 			stmt = conn.prepareStatement("INSERT INTO staff ( firstname, lastname, number, email, address ) VALUES ( ?, ?, ?, ?, ? );");
-			stmt.setString(2, staff.getFirstName());
-			stmt.setString(3, staff.getLastName());
-			stmt.setString(4, staff.getNumber());
-			stmt.setString(5, staff.getEmail());
-			stmt.setString(6, staff.getAddress());
+			stmt.setString(1, str[0]);
+			stmt.setString(2, str[1]);
+			stmt.setString(3, str[2]);
+			stmt.setString(4, str[3]);
+			stmt.setString(5, str[4]);
 			stmt.executeUpdate();
 		}
 		catch(Exception e) {
@@ -103,37 +100,48 @@ public class StoreDatabase
 		return(true);
 	}
 
-	public void addClothes(Clothes clothe) {
-		if(insertClothesToDB(clothe)) {
-			clothes.addClothes(clothe);
-		}
-	}
-
-	boolean insertClothesToDB(Clothes clothe) {
+	public boolean insertOrderToDB(String... str) {
 		PreparedStatement stmt = null;
 		try {
-			if(clothe instanceof Shirt) {
-				Shirt shirt = (Shirt)clothe;
-				stmt = conn.prepareStatement("INSERT INTO shirts ( type, color, design, price, quantity, size, gender ) VALUES ( ?, ?, ?, ?, ?, ?, ? );");
-				stmt.setString(1, shirt.getType());
-				stmt.setString(2, shirt.getColor());
-				stmt.setString(3, shirt.getDesign());
-				stmt.setBigDecimal(4, shirt.getPrice());
-				stmt.setInt(5, shirt.getQuantity());
-				stmt.setString(6, shirt.getSize());
-				stmt.setString(7, shirt.getGender());
+			Date date = new SimpleDateFormat("dd/MM/yyyy").parse(str[4]);
+			stmt = conn.prepareStatement("INSERT INTO orders ( clothesid, userid, quantity, size, orderdate ) VALUES ( ?, ?, ?, ?, ? );");
+			stmt.setInt(2, Integer.parseInt(str[0]));
+			stmt.setInt(3, Integer.parseInt(str[1]));
+			stmt.setInt(4, Integer.parseInt(str[2]));
+			stmt.setString(5, str[3]);
+			stmt.setDate(6, new java.sql.Date(date.getTime()));
+			stmt.executeUpdate();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			return(false);
+		}
+		finally {
+			try { if(stmt != null) stmt.close(); } catch (Exception e) {};
+		}
+		return(true);
+	}
+
+	public boolean insertClotheToDB(String type, String... str) {
+		PreparedStatement stmt = null;
+		try {
+			if("Shirt".equals(type)) {
+				stmt = conn.prepareStatement("INSERT INTO clothes ( productname, type, color, design, price, gender ) VALUES ( ?, ?, ?, ?, ?, ? );");
+				stmt.setString(1, str[0]);
+				stmt.setString(2, str[1]);
+				stmt.setString(3, str[2]);
+				stmt.setString(4, str[3]);
+				stmt.setBigDecimal(5, new BigDecimal(str[4]));
+				stmt.setString(6, str[5]);
 				stmt.executeUpdate();
 			}
-			if(clothe instanceof Other) {
-				Other other = (Other)clothe;
-				stmt = conn.prepareStatement("INSERT INTO others ( productname, type, color, price, quantity, size, gender ) VALUES ( ?, ?, ?, ?, ?, ?, ? );");
-				stmt.setString(1, other.getProductName());
-				stmt.setString(2, other.getType());
-				stmt.setString(3, other.getColor());
-				stmt.setBigDecimal(4, other.getPrice());
-				stmt.setInt(5, other.getQuantity());
-				stmt.setString(6, other.getSize());
-				stmt.setString(7, other.getGender());
+			if("Other".equals(type)) {
+				stmt = conn.prepareStatement("INSERT INTO clothes ( productname, type, color, price, gender ) VALUES ( ?, ?, ?, ?, ? );");
+				stmt.setString(1, str[0]);
+				stmt.setString(2, str[1]);
+				stmt.setString(3, str[2]);
+				stmt.setBigDecimal(4, new BigDecimal(str[4]));
+				stmt.setString(5, str[5]);
 				stmt.executeUpdate();
 			}
 		}
@@ -156,6 +164,7 @@ public class StoreDatabase
 			rs = stmt.executeQuery("SELECT * FROM users;");
 			while(rs.next()) {
 				String[] str = {
+					String.valueOf(rs.getInt("userid")),
 					rs.getString("username"),
 					rs.getString("password"),
 					rs.getString("firstname"),
@@ -163,40 +172,48 @@ public class StoreDatabase
 					rs.getString("email"),
 					rs.getString("number"),
 					rs.getString("address"),
+					"user"
 				};
-				Users u = new Users(rs.getInt("userid"), str[0], str[1], str[2], str[3], str[4], str[5], str[6]);
-				users.addUser(u);
+				createObject(str);
 			}
 			rs = stmt.executeQuery("SELECT * FROM staff;");
 			while(rs.next()) {
 				String[] str = {
+					String.valueOf(rs.getInt("staffid")),
 					rs.getString("firstname"),
 					rs.getString("lastname"),
-					rs.getString("number"),
 					rs.getString("email"),
-					rs.getString("address")
+					rs.getString("number"),
+					rs.getString("address"),
+					"staff"
 				};
-				Staff s = new Staff(rs.getInt("staffid"), str[0], str[1], str[2], str[3], str[4]);
-				staffs.addStaff(s);
+				createObject(str);
 			}
 			rs = stmt.executeQuery("SELECT * FROM clothes;");
 			while(rs.next()) {
 				String[] str = {
+					String.valueOf(rs.getInt("clothesid")),
 					rs.getString("productname"),
-					rs.getString("type"),
 					rs.getString("color"),
+					String.valueOf(rs.getBigDecimal("price")),
 					rs.getString("design"),
-					rs.getString("size"),
-					rs.getString("gender")
+					rs.getString("gender"),
+					rs.getString("type")
 				};
-				if("Shirt".equals(str[1])) {
-					Shirt s = new Shirt(rs.getInt("clothesid"), str[0], str[1], str[2], rs.getBigDecimal("price"), rs.getInt("quantity"), str[3], str[4], str[5]);
-					clothes.addClothes(s);
-				}
-				else if("Others".equals(str[1])) {
-					Other o = new Other(rs.getInt("clothesid"), str[0], str[1], str[2], rs.getBigDecimal("price"), rs.getInt("quantity"), str[4], str[5]);
-					clothes.addClothes(o);
-				}
+				createObject(str);
+			}
+			rs = stmt.executeQuery("SELECT * FROM orders;");
+			while(rs.next()) {
+				String[] str = {
+					String.valueOf(rs.getInt("orderid")),
+					String.valueOf(rs.getInt("clothesid")),
+					String.valueOf(rs.getInt("userid")),
+					String.valueOf(rs.getInt("quantity")),
+					rs.getString("size"),
+					String.valueOf(rs.getDate("orderdate")),
+					"order"
+				};
+				createObject(str);
 			}
 			v = true;
 		}
@@ -210,6 +227,36 @@ public class StoreDatabase
 		return(v);
 	}
 
+	public void createObject(String... str) {
+		int len = str.length-1;
+		String d = str[len];
+		switch(d) {
+			case "user" :
+				Users user = new Users(Integer.parseInt(str[0]), str[1], str[2], str[3], str[4], str[5], str[6], str[7]);
+				users.addUser(user);
+				break;
+			case "staff" :
+				Staff s = new Staff(Integer.parseInt(str[0]), str[1], str[2], str[3], str[4], str[5]);
+				staff.addStaff(s);
+				break;
+			case "Shirt" :
+				Shirt shirt = new Shirt(Integer.parseInt(str[0]), str[1], str[6], str[2], new BigDecimal(str[3]), str[4], str[5]);
+				clothes.addClothes(shirt);
+				break;
+			case "Other" :
+				Other other = new Other(Integer.parseInt(str[0]), str[1], str[6], str[2], new BigDecimal(str[3]), str[5]);
+				clothes.addClothes(other);
+				break;
+			case "order" :
+				try {
+					Date date = new SimpleDateFormat("dd/MM/yyyy").parse(str[5]);
+					Order order = new Order(Integer.parseInt(str[0]), Integer.parseInt(str[1]), Integer.parseInt(str[2]), Integer.parseInt(str[3]), str[4], date);
+					orders.addOrder(order);
+				}
+				catch(Exception e) {}
+		}
+	}
+
 	public boolean checkUser(String un, String pw) {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -218,6 +265,27 @@ public class StoreDatabase
 			stmt = conn.prepareStatement("SELECT * FROM users where username = ? AND password = ?;");
 			stmt.setString(1, un);
 			stmt.setString(2, pw);
+			rs = stmt.executeQuery();
+			st = rs.next();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			try { if (rs != null) rs.close(); } catch (Exception e) {};
+			try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+		}
+		return(st);
+	}
+
+	public boolean checkAvailability(String un, String em) {
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		boolean st = false;
+		try{
+			stmt = conn.prepareStatement("SELECT * FROM users where username = ? OR email = ?;");
+			stmt.setString(1, un);
+			stmt.setString(2, em);
 			rs = stmt.executeQuery();
 			st = rs.next();
 		}

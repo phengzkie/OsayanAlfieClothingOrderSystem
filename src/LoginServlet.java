@@ -13,21 +13,24 @@ public class LoginServlet extends HttpServlet
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
+		response.setContentType("text/html");
 		String un = request.getParameter("username");
 		String pw = request.getParameter("password");
 		System.out.println(un);
 		System.out.println(pw);
+		System.out.println(request.getRequestURI());
 		if(sd.checkUser(un, pw)) {
-			// RequestDispatcher rs = request.getRequestDispatcher("Welcome");
-			// rs.forward(request, response);
-			System.out.println("Nakalogin na");
+			System.out.println("naka login na");
+			out.print("Welcome, " + un);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/userdashboard.html");
+			dispatcher.forward( request, response );
 		}
 		else {
 			out.println("Username or Password incorrect");
-			System.out.println("Mali");
-			// RequestDispatcher rs = request.getRequestDispatcher("index.html");
-			// rs.include(request, response);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/");
+			dispatcher.forward( request, response );
 		}
+		out.close();
 	}
 
 	public void destroy() {

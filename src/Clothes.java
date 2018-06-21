@@ -6,7 +6,6 @@ public class Clothes
 	private String type;
 	private String color;
 	private BigDecimal price;
-	private int quantity;
 
 	public String getProductName() {
 		return(productname);
@@ -38,13 +37,5 @@ public class Clothes
 
 	public void setPrice(BigDecimal p) {
 		price = p;
-	}
-
-	public int getQuantity() {
-		return(quantity);
-	}
-
-	public void setQuantity(int q) {
-		quantity = q;
 	}
 }

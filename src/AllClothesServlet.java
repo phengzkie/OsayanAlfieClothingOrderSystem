@@ -21,27 +21,21 @@ public class AllClothesServlet extends HttpServlet
 			Clothes clothes = cc.getClothesByIndex(i);
 			if(clothes instanceof Shirt) {
 				Shirt s = (Shirt)clothes;
-				sb.append("<shirts><id>");
-				sb.append(s.getId() + "</id>");
-				sb.append("<productname>" + clothes.getProductName() + "</productname>");
+				sb.append("<shirts><productname>");
+				sb.append(clothes.getProductName() + "</productname>");
 				sb.append("<type>" + clothes.getType() + "</type>");
 				sb.append("<color>" + clothes.getColor() + "</color>");
 				sb.append("<price>" + clothes.getPrice() + "</price>");
-				sb.append("<quantity>" + clothes.getQuantity() + "</quantity>");
 				sb.append("<design>" + s.getDesign() + "</design>");
-				sb.append("<size>" + s.getSize() + "</size>");
 				sb.append("<gender>" + s.getGender() + "</gender></shirts>");
 			}
 			else if(clothes instanceof Other) {
 				Other o = (Other)clothes;
-				sb.append("<others><id>");
-				sb.append(o.getId() + "</id>");
-				sb.append("<productname>" + clothes.getProductName() + "</productname>");
+				sb.append("<others><productname>");
+				sb.append(clothes.getProductName() + "</productname>");
 				sb.append("<type>" + clothes.getType() + "</type>");
 				sb.append("<color>" + clothes.getColor() + "</color>");
 				sb.append("<price>" + clothes.getPrice() + "</price>");
-				sb.append("<quantity>" + clothes.getQuantity() + "</quantity>");
-				sb.append("<size>" + o.getSize() + "</size>");
 				sb.append("<gender>" + o.getGender() + "</gender></others>");
 			}
 		}

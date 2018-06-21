@@ -4,16 +4,15 @@ import javax.servlet.http.*;
 
 public class AllStaffServlet extends HttpServlet
 {
-	StaffCollection sc;
 	StoreDatabase sd;
 
 	public void init() throws ServletException {
 		sd = StoreDatabase.instance();
-		sc = sd.getStaffCollection();
 	}
 	
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		StaffCollection sc = sd.getStaffCollection();
 		PrintWriter out = response.getWriter();
 		response.setContentType("text/xml");
 		StringBuffer sb = new StringBuffer("<staff>");
@@ -33,7 +32,6 @@ public class AllStaffServlet extends HttpServlet
 	}
 
 	public void destroy() {
-		sc = null;
 		sd = null;
 	}
 }

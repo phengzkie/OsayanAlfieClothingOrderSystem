@@ -2,7 +2,7 @@ import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-public class addUserServlet extends HttpServlet
+public class addStaffServlet extends HttpServlet
 {
 	StoreDatabase sd;
 
@@ -10,28 +10,23 @@ public class addUserServlet extends HttpServlet
 		sd = StoreDatabase.instance();
 	}
 	
+
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("POST request from html na may tamang value");
 		response.setContentType("text/plain");
 		PrintWriter out = response.getWriter();
-		String un = request.getParameter("username");
-		String pw = request.getParameter("password");
 		String fn = request.getParameter("fname");
 		String ln = request.getParameter("lname");
 		String em = request.getParameter("email");
 		String mn = request.getParameter("mobile");
 		String add = request.getParameter("add");
-		String[] str = {un, pw, fn, ln, em, mn, add};
-		if(sd.checkAvailability(un, em) == true) {
-			out.println("Username or Email already taken");
+		String[] str = {fn, ln, em, mn, add};
+		if(sd.insertStaffToDB(str)) {
+			out.println("Staff Added");
+			System.out.println("na add na staff");
 		}
 		else {
-			if(sd.insertUserToDB(str)) {
-				out.println("Registration Complete");
-			}
-			else {
-				out.println("Registration Failed");
-			}
+			out.println("Adding Staff Failed");
 		}
 		out.close();
 	}

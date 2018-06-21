@@ -19,6 +19,7 @@ public class AllUsersServlet extends HttpServlet
 		StringBuffer sb = new StringBuffer("<users>");
 		for (int i = 0; i < uc.getUsersCount(); i++) {
 			Users users = uc.getUsersByIndex(i);
+			sb.append("<user><id>" + users.getId() + "</id>");
 			sb.append("<username>" + users.getUsername() + "</username>");
 			sb.append("<firstname>" + users.getFirstName() + "</firstname>");
 			sb.append("<lastname>" + users.getLastName() + "</lastname>");

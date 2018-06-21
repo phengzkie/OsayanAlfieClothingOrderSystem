@@ -8,7 +8,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>All Shirts</servlet-name>
-		<url-pattern>/shirts</url-pattern>
+		<url-pattern>/clothes</url-pattern>
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>All Users</servlet-name>
@@ -41,5 +41,21 @@
 	<servlet-mapping>
 		<servlet-name>Add User</servlet-name>
 		<url-pattern>/adduser</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>Add Staff</servlet-name>
+		<servlet-class>addStaffServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Add Staff</servlet-name>
+		<url-pattern>/addstaff</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>Add Clothe</servlet-name>
+		<servlet-class>addClotheServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Add Clothe</servlet-name>
+		<url-pattern>/addclothe</url-pattern>
 	</servlet-mapping>
 </web-app>
