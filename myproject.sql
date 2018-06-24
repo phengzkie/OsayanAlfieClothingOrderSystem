@@ -8,6 +8,15 @@ CREATE TABLE staff (
 	address VARCHAR(255) NOT NULL
 );
 
+DROP TABLE IF EXISTS orders;
+CREATE TABLE orders (
+	orderid INTEGER PRIMARY KEY AUTO_INCREMENT,
+	clothesid INTEGER NOT NULL,
+	userid INTEGER NOT NULL,
+	quantity INTEGER NOT NULL,
+	size VARCHAR(50) NOT NULL
+);
+
 DROP TABLE IF EXISTS clothes;
 CREATE TABLE clothes (
 	clothesid INTEGER PRIMARY KEY AUTO_INCREMENT,
@@ -16,8 +25,6 @@ CREATE TABLE clothes (
 	color VARCHAR(50) NOT NULL,
 	design VARCHAR(50),
 	price DECIMAL(10, 2) NOT NULL,
-	quantity INTEGER NOT NULL,
-	size VARCHAR(50) NOT NULL,
 	gender VARCHAR(50) NOT NULL
 );
 
@@ -39,7 +46,7 @@ INSERT INTO users ( username, password, firstname, lastname, email, number, addr
 INSERT INTO staff ( firstname, lastname, number, email, address ) VALUES ( 'ivan', 'oliveros', 09270987567, 'iv@gmail.com', 'Las Pinas' );
 INSERT INTO staff ( firstname, lastname, number, email, address ) VALUES ( 'bowwi', 'kaligbak', 09274966557, 'bk@gmail.com', 'Calamba' );
 
-INSERT INTO clothes ( productname, type, color, design, price, quantity, size, gender ) VALUES ( 'Shirt 1', 'Shirt', 'Black', 'Minimalist', 500, 2, 'Large', 'Male' );
-INSERT INTO clothes ( productname, type, color, design, price, quantity, size, gender ) VALUES ( 'Shirt 2', 'Shirt', 'Red', 'Foodporn', 600, 1, 'Medium', 'Male' );
-INSERT INTO clothes ( productname, type, color, design, price, quantity, size, gender ) VALUES ( 'Windbreaker Jacket', 'Others', 'White', null, 350, 1, 'Small', 'Female' );
-INSERT INTO clothes ( productname, type, color, design, price, quantity, size, gender ) VALUES ( 'Jogger Pants', 'Others', 'Gray', null, 600, 1, '36', 'Female' );
+INSERT INTO clothes ( productname, type, color, design, price, gender ) VALUES ( 'Shirt 1', 'Shirt', 'Black', 'Minimalist', 500, 'Male' );
+INSERT INTO clothes ( productname, type, color, design, price, gender ) VALUES ( 'Shirt 2', 'Shirt', 'Red', 'Foodporn', 600, 'Male' );
+INSERT INTO clothes ( productname, type, color, design, price, gender ) VALUES ( 'Windbreaker Jacket', 'Others', 'White', null, 350, 'Female' );
+INSERT INTO clothes ( productname, type, color, design, price, gender ) VALUES ( 'Jogger Pants', 'Others', 'Gray', null, 600, 'Female' );

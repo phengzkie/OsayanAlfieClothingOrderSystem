@@ -33,11 +33,11 @@ public class StoreDatabase
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			conn = DriverManager.getConnection("jdbc:mysql://localhost/clothingstoredb?user=alfie&password=alfie123&serverTimezone=UTC&useSSL=false");
+			getFromDB(conn);
 		}
 		catch(Exception e) {
 			e.printStackTrace();
 		}
-		getFromDB(conn);
 	}
 
 	public UsersCollection getUsersCollection() {
