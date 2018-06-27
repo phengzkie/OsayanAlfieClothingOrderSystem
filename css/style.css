@@ -1,77 +1,32 @@
 body {
-	padding: 0;
-	margin: 0;
+	padding: 20;
+	margin: 20;
 	font-family: 'Roboto', sans-serif;
 	position: relative;
 }
 
-body a {
-	transition: 0.5s all;
-	-webkit-transition: 0.5s all;
-	-moz-transition: 0.5s all;
-	-o-transition: 0.5s all;
-	-ms-transition: 0.5s all;
+a {
 	text-decoration: none;
 }
-
-body a:hover {
-	transition: 0.5s all;
-	-webkit-transition: 0.5s all;
-	-moz-transition: 0.5s all;
-	-o-transition: 0.5s all;
-	-ms-transition: 0.5s all;
+a.button {
+	-webkit-appearance: button;
+	-moz-appearance: button;
 	text-decoration: none;
+	background-color: rgb(142, 0, 11);
+	color: white;
+	padding: 14px 20px;
+	margin: 8px 0px;
+	border: none;
+	cursor: pointer;
+	width: 25%;
 }
-
-body a:focus, a:hover {
-	text-decoration: none;
-}
-
-input[type="button"], input[type="submit"], button.btn, button.btn:hover {
-	transition: 0.5s all;
-	-webkit-transition: 0.5s all;
-	-moz-transition: 0.5s all;
-	-o-transition: 0.5s all;
-	-ms-transition: 0.5s all;
-}
-
-h1, h2, h3, h4, h5, h6 {
-	margin: 0;
-	padding: 0;
-	text-align: center;
-	font-family: 'Montserrat', sans-serif;
-}
-
-p {
-	margin: 0;
-}
-
-ul {
-	margin: 0;
-	padding: 0;
-}
-
-label {
-	margin: 0;
-}
-
-img {
-	width: 100%;
+a:hover {
+	opacity: 0.8;
 }
 
 a:focus, a:hover {
 	text-decoration: none;
 	outline: none;
-}
-
-.btn:focus, .btn:active:focus, .btn.active:focus {
-	outline: none;
-	box-shadow: none;
-}
-
-.header-topbar {
-	margin-top: 50px;
-	padding: 20px 0;
 }
 
 nav.navbar {
@@ -89,61 +44,55 @@ a.navbar-brand {
 	line-height: 16px;
 }
 
-.navbar-default .navbar-brand {
+.navbar .navbar-brand {
 	color: #001c44;
 }
 
-.navbar-default .navbar-brand span {
+.navbar .navbar-brand span {
 	color: #c41228;
 }
 
-.row {
-	margin: 0;
-}
-
-
-.top-bar {
-	padding: 0;
-	text-align: right;
-}
-
-.top-bar ul li {
+input {
+	width: 20%;
+	padding: 12px 20px;
+	margin: 8px 0;
 	display: inline-block;
-	margin: 0 5px;
+	border: 1px solid #ccc;
+	box-sizing: border-box;
 }
 
-.top-bar ul li a {
-	color: #000;
+button {
+	background-color: rgb(36, 0, 155);
+	color: white;
+	padding: 14px 20px;
+	margin: 8px 0;
+	border: none;
+	cursor: pointer;
+	width: 20%;
 }
 
-.top-bar ul li a:hover {
-	color: #c41228;
+button:hover {
+	opacity: 0.8;
 }
 
-.top-bar ul li:nth-child(6) {
-	margin-right: 0;
+.container {
+	padding: 16px;
+	background-color:#f1f1f1;
 }
 
-@media screen and (max-width: 1080px) {
-	a.navbar-brand {
-		font-size: 18px;
-	}
+span.psw {
+	float: right;
+	padding-top: 16px;
 }
 
-@media (max-device-width: 480px) and (orientation: landscape) {
-	.navbar-fixed-top {
-	max-height: 200px;
-	}
+#login-btn {
+	width:auto;
 }
 
-.hide {
-	display: none;
+#signup-btn {
+	width:auto;
 }
 
-#login-form {
-	text-align: center;
-}
-
-#signup-form {
-	text-align: center;
+.form-staff-div {
+	visibility : hidden;
 }
